@@ -7,6 +7,7 @@
 <meta name="author" content="Euzilanea Miotto, Data Secure®">
 <meta name="description" content="Checklist Interativo — Provimento CNJ nº 213/2026 | Classe 3 | Ferramenta de conformidade para Serventias Extrajudiciais">
 <title>Data Secure® — Checklist Provimento CNJ nº 213/2026 | Classe 3</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root {
     --ds-azul: #1B3A5C;
@@ -20,32 +21,124 @@
     --ds-branco: #FFFFFF;
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--ds-bg); color: #333; }
+  body { font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif; background: var(--ds-bg); color: #333; }
   .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 
-  /* LOGO POSICIONADA */
-  .logo-header {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    z-index: 1000;
-    background: white;
-    padding: 8px 12px;
-    border-radius: 6px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  /* LOGO INLINE NAS SEÇÕES */
+  .secao-logo {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
   }
-  .logo-header img {
-    height: 50px;
+  .secao-logo img {
+    height: 40px;
     width: auto;
+  }
+  .secao-logo .secao-titulo {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ds-azul);
   }
 
   /* HEADER */
   .header { text-align: center; padding: 30px 0 10px; }
-  .header h1 { color: var(--ds-azul); font-size: 28px; letter-spacing: 2px; }
-  .header .sub { color: #888; font-size: 13px; margin-top: 4px; }
+  .header .logo-topo { height: 60px; width: auto; margin-bottom: 10px; }
+  .header .sub { color: #666; font-size: 13px; margin-top: 6px; letter-spacing: 0.5px; line-height: 1.6; max-width: 700px; margin-left: auto; margin-right: auto; }
   .header .titulo-principal {
-    background: var(--ds-azul); color: white; padding: 14px 30px; border-radius: 8px;
-    font-size: 16px; font-weight: 700; margin-top: 18px; display: inline-block;
+    background: var(--ds-azul); color: white; padding: 16px 35px; border-radius: 10px;
+    font-size: 18px; font-weight: 700; margin-top: 20px; display: inline-block;
+    box-shadow: 0 4px 12px rgba(27, 58, 92, 0.2);
+  }
+
+  /* BOTÕES DE COMPARTILHAMENTO */
+  .botoes-compartilhamento {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 30px 0;
+    padding: 20px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .btn-share {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 12px 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    color: white;
+  }
+
+  .btn-email {
+    background: #EA4335;
+  }
+  .btn-email:hover {
+    background: #D93B31;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(234, 67, 53, 0.3);
+  }
+
+  .btn-whatsapp {
+    background: #25D366;
+  }
+  .btn-whatsapp:hover {
+    background: #20BA5A;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+  }
+
+  .btn-linkedin {
+    background: #0A66C2;
+  }
+  .btn-linkedin:hover {
+    background: 0856AA;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(10, 102, 194, 0.3);
+  }
+
+  .btn-instagram {
+    background: linear-gradient(45deg, #F58529, #DD2A7B, #8134AF);
+  }
+  .btn-instagram:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(221, 42, 123, 0.3);
+  }
+
+  .btn-site {
+    background: var(--ds-azul);
+  }
+  .btn-site:hover {
+    background: #15304D;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(27, 58, 92, 0.3);
+  }
+
+  .btn-diagnostico {
+    background: var(--ds-amarelo);
+    color: black;
+    font-weight: 700;
+    font-size: 14px;
+    padding: 14px 24px;
+  }
+  .btn-diagnostico:hover {
+    background: #E88D0E;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(243, 156, 18, 0.4);
+  }
+
+  .btn-share span {
+    font-size: 17px;
   }
 
   /* DASHBOARD */
@@ -67,7 +160,7 @@
     background: var(--ds-cinza); color: white; padding: 10px 14px;
     font-size: 11px; text-transform: uppercase; letter-spacing: 1px; text-align: left;
   }
-  .progress-table td { padding: 10px 14px; border-bottom: 1px solid #eee; font-size: 13px; }
+  .progress-table td { padding: 10px 14px; border-bottom: 1px solid #eee; font-size: 14px; }
   .progress-table tr:hover { background: #f0f4f8; }
   .bar-bg { background: #E8ECF0; border-radius: 10px; height: 22px; overflow: hidden; position: relative; min-width: 200px; }
   .bar-fill { height: 100%; border-radius: 10px; transition: width 0.6s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; }
@@ -97,11 +190,11 @@
     background: #F0F3F7; padding: 8px 12px; font-size: 10px; text-transform: uppercase;
     letter-spacing: 0.5px; color: #666; text-align: left; border-bottom: 2px solid #ddd;
   }
-  .item-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; font-size: 12px; vertical-align: top; }
+  .item-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; font-size: 13px; vertical-align: top; }
   .item-table tr:hover { background: #FAFBFD; }
-  .item-name { font-weight: 700; color: var(--ds-azul); font-size: 13px; }
-  .item-ref { color: #888; font-size: 11px; line-height: 1.5; }
-  .item-ev { color: #555; font-size: 11px; line-height: 1.5; }
+  .item-name { font-weight: 700; color: var(--ds-azul); font-size: 14px; }
+  .item-ref { color: #888; font-size: 12px; line-height: 1.5; }
+  .item-ev { color: #555; font-size: 12px; line-height: 1.5; }
 
   .urg-critico { background: #FFEBEE; color: #C0392B; font-weight: 700; padding: 3px 8px; border-radius: 4px; font-size: 10px; }
   .urg-alto { background: #FFF3E0; color: #E67E22; font-weight: 700; padding: 3px 8px; border-radius: 4px; font-size: 10px; }
@@ -122,26 +215,49 @@
 
   /* SEÇÃO AUTOR */
   .autor-section {
-    background: white; border-radius: 12px; padding: 30px; margin: 30px 0;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--ds-verde);
+    background: white; border-radius: 12px; padding: 35px; margin: 30px 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
   }
-  .autor-title { font-size: 16px; font-weight: 700; color: var(--ds-azul); margin-bottom: 20px; }
   .autor-container {
-    display: flex; gap: 25px; align-items: flex-start;
+    display: flex; gap: 30px; align-items: flex-start;
   }
   .autor-foto {
     flex-shrink: 0;
   }
   .autor-foto img {
-    width: 120px; height: 120px; border-radius: 8px; object-fit: cover;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    width: 130px; height: 130px; border-radius: 50%; object-fit: cover;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15); border: 3px solid var(--ds-azul-claro);
   }
   .autor-bio {
     flex: 1;
   }
-  .autor-bio h4 { font-size: 14px; color: var(--ds-azul); margin-bottom: 8px; font-weight: 700; }
-  .autor-bio p { font-size: 13px; line-height: 1.6; color: #555; margin-bottom: 10px; }
-  .autor-bio .destaque { color: var(--ds-verde); font-weight: 600; }
+  .autor-subtitulo {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--ds-amarelo); margin-bottom: 6px;
+  }
+  .autor-bio h4 { font-size: 24px; color: var(--ds-azul); margin-bottom: 6px; font-weight: 800; }
+  .autor-destaque-line { font-size: 14px; font-weight: 600; color: #555; margin-bottom: 12px; }
+  .autor-bio p { font-size: 14px; line-height: 1.7; color: #555; margin-bottom: 14px; }
+
+  .autor-tags { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .autor-tag {
+    padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 600;
+    border: 1.5px solid #ddd; color: #555; background: white;
+  }
+  .autor-tag.destaque {
+    border-color: var(--ds-amarelo); color: var(--ds-amarelo);
+  }
+
+  .autor-contato { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .autor-contato a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
+    border: 1.5px solid #ddd; color: var(--ds-azul); text-decoration: none;
+    transition: all 0.3s ease; background: white;
+  }
+  .autor-contato a:hover {
+    border-color: var(--ds-azul); background: var(--ds-azul-claro);
+  }
 
   /* FOOTER LEGAL */
   .footer-legal {
@@ -167,9 +283,10 @@
   }
 
   @media (max-width: 768px) {
-    .logo-header { position: static; margin-bottom: 15px; }
     .autor-container { flex-direction: column; align-items: center; text-align: center; }
     .gauge-container { gap: 20px; }
+    .botoes-compartilhamento { flex-direction: column; gap: 10px; }
+    .btn-share { width: 100%; justify-content: center; }
   }
 
   @media print {
@@ -183,19 +300,40 @@
 </style>
 </head>
 <body>
-<div class="logo-header">
-  <img src="Euzilanea_Data5.png" alt="Data Secure®">
-</div>
-
 <div class="container">
   <div class="header">
-    <h1>DATA SECURE®</h1>
-    <div class="sub">Governança · Riscos · Conformidade · Segurança da Informação</div>
+    <img src="Euzilanea_Data2.png" alt="Data Secure®" class="logo-topo">
+    <div class="sub">Governança · Gestão de Riscos e Continuidade · Gestão de Tecnologia e Segurança da Informação · Compliance Digital</div>
     <div class="titulo-principal">PAINEL DE CONFORMIDADE — Provimento CNJ nº 213/2026 | Classe 3</div>
   </div>
 
+  <!-- BOTÕES DE COMPARTILHAMENTO E AÇÃO -->
+  <div class="botoes-compartilhamento">
+    <a href="mailto:euzilanea.miotto@datasecure.seg.br?subject=Data%20Secure%20-%20Checklist%20Provimento%20213/2026&body=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es%20sobre%20o%20Checklist%20Interativo%20da%20Data%20Secure%20para%20o%20Provimento%20CNJ%20213/2026.%0A%0ALink%3A%20https%3A%2F%2Fvigilando.datasecure.seg.br%2Fchecklist" class="btn-share btn-email">
+      <span>&#9993;</span> Email
+    </a>
+    <a href="https://wa.me/5527998808929?text=Ol%C3%A1%2C%20vim%20pelo%20Checklist%20Interativo%20Provimento%20CNJ%20213%2F2026%20da%20Data%20Secure.%20Gostaria%20de%20mais%20informa%C3%A7%C3%B5es." class="btn-share btn-whatsapp" target="_blank">
+      <span>&#128172;</span> WhatsApp
+    </a>
+    <a href="https://www.linkedin.com/in/euzilanea-miotto/" class="btn-share btn-linkedin" target="_blank">
+      <span>in</span> LinkedIn
+    </a>
+    <a href="https://www.instagram.com/datasecurebrasil/" class="btn-share btn-instagram" target="_blank">
+      <span>&#128247;</span> Instagram
+    </a>
+    <a href="https://datasecure.seg.br/" class="btn-share btn-site" target="_blank">
+      <span>&#127760;</span> Site
+    </a>
+    <a href="https://wa.me/5527998808929?text=Ol%C3%A1%2C%20gostaria%20de%20solicitar%20um%20Diagn%C3%B3stico%20de%20Risco%20para%20minha%20serventia.%20Vim%20pelo%20Checklist%20Provimento%20213%2F2026." class="btn-share btn-diagnostico" target="_blank">
+      &#128202; SOLICITAR DIAGN&Oacute;STICO DE RISCO
+    </a>
+  </div>
+
   <div class="dashboard">
-    <div class="dash-title">Conformidade Geral</div>
+    <div class="secao-logo">
+      <img src="Euzilanea_Data5.png" alt="Data Secure®">
+      <span class="secao-titulo">Conformidade Geral</span>
+    </div>
     <div class="gauge-container">
       <div class="gauge-box">
         <canvas id="gaugeTotal" width="180" height="110"></canvas>
@@ -247,23 +385,40 @@
 
   <!-- SEÇÃO AUTOR -->
   <div class="autor-section">
-    <div class="autor-title">SOBRE A AUTORA</div>
+    <div class="secao-logo">
+      <img src="Euzilanea_Data5.png" alt="Data Secure®">
+      <span class="secao-titulo">SOBRE A AUTORA</span>
+    </div>
     <div class="autor-container">
       <div class="autor-foto">
         <img src="perfil.jpg" alt="Euzilanea Miotto">
       </div>
       <div class="autor-bio">
+        <div class="autor-subtitulo">FUNDADORA &middot; STRATEGIC ADVISOR &middot; DATA SECURE&reg;</div>
         <h4>Euzilanea Miotto</h4>
-        <p><span class="destaque">Fundadora e Consultora Estratégica da Data Secure®</span></p>
+        <div class="autor-destaque-line">Governança Corporativa &bull; Gestão de Riscos (GRC) &bull; Compliance Digital</div>
         <p>
-          Especialista em Governança, Riscos e Conformidade (GRC), Gestão de TI e Segurança da Informação, Continuidade de Negócios, Privacidade (LGPD), Auditorias e Governança de IA. Com foco no mercado de Serventias Extrajudiciais (Cartórios), mas atuando em diversos setores.
+          Mais de 30 anos em Governança Corporativa e mais de 15 anos em Serventias Extrajudiciais. Especialista em Governança de TI, Segurança da Informação, Gestão de Riscos, Continuidade de Negócios e Conformidade Digital.
         </p>
-        <p>
-          Autodidata em Direito Extrajudicial com <strong>10 anos de experiência direta em cartórios</strong> e <strong>mais de 20 anos em Governança Corporativa</strong>. Especialista em Gestão de Riscos, Inteligência Artificial, Segurança Cibernética, Privacidade (LGPD) e Conformidade Digital.
-        </p>
-        <p>
-          Sua missão: ser o <strong>escudo do delegatário</strong> contra sanções do CNJ (Provimentos 149/2023, 161/2025, 213/2026), estruturando defesas contra os riscos decorrentes da dependência de fornecedores de TI (SGBD, nuvem, backups, infraestrutura).
-        </p>
+
+        <div class="autor-tags">
+          <span class="autor-tag destaque">Gestão de Riscos (GRC)</span>
+          <span class="autor-tag destaque">Governança de TI</span>
+          <span class="autor-tag">Segurança da Informação</span>
+          <span class="autor-tag destaque">Continuidade de Negócios</span>
+          <span class="autor-tag">Governança de IA</span>
+          <span class="autor-tag">Auditoria de Fornecedores</span>
+          <span class="autor-tag">Conformidade CNJ</span>
+          <span class="autor-tag">Compliance Digital</span>
+          <span class="autor-tag">Adequação LGPD</span>
+        </div>
+
+        <div class="autor-contato">
+          <a href="mailto:emiotto@datasecure.seg.br">&#9993; emiotto@datasecure.seg.br</a>
+          <a href="https://datasecure.seg.br/" target="_blank">&#127760; datasecure.seg.br</a>
+          <a href="https://www.instagram.com/datasecurebrasil/" target="_blank">&#128247; @datasecurebrasil</a>
+          <a href="https://www.linkedin.com/in/euzilanea-miotto/" target="_blank">in LinkedIn</a>
+        </div>
       </div>
     </div>
   </div>
@@ -272,22 +427,16 @@
   <div class="footer-legal">
     <div class="footer-legal-container">
       <div class="footer-copyright">
-        <strong>&copy; 2026 Data Secure®. Todos os direitos reservados.</strong><br>
-        Este conteúdo é propriedade intelectual de Data Secure® e está protegido pelas leis de direito autoral brasileiras e internacionais.
+        <strong>Euzilanea Miotto &middot; Data Secure&reg;</strong> — Governança, Riscos e Compliance Digital para Serventias Extrajudiciais
       </div>
       <div class="footer-copyright">
-        <strong>Restrições de Uso:</strong> Proibida a reprodução, distribuição, modificação, tradução ou transmissão total ou parcial deste documento, em qualquer mídia ou formato, sem permissão expressa e por escrito da Data Secure®. O uso não autorizado constitui violação das leis de direito autoral e propriedade intelectual.
-      </div>
-      <div class="footer-copyright">
-        <strong>Confidencialidade:</strong> Este material é confidencial e deve ser utilizado exclusivamente pela Serventia contratante e pela Equipe de Auditoria Data Secure®. Não pode ser compartilhado, divulgado ou cedido a terceiros sem autorização expressa.
+        &#9993; <a href="mailto:emiotto@datasecure.seg.br" style="color:#D6E4F0; text-decoration:none;">emiotto@datasecure.seg.br</a>
+        &nbsp;&nbsp; &#127760; <a href="https://datasecure.seg.br/" target="_blank" style="color:#D6E4F0; text-decoration:none;">datasecure.seg.br</a>
+        &nbsp;&nbsp; <a href="https://datasecure.seg.br/politica-de-privacidade/" target="_blank" style="color:#D6E4F0; text-decoration:none;">Política de Privacidade | Data Secure&reg;</a>
       </div>
       <div class="footer-divider">
-        Metodologia Data Secure® — Retomada do Controle da Serventia | Março de 2026<br>
-        <div class="footer-links">
-          <a href="#termos">Termos de Uso</a>
-          <a href="#privacidade">Política de Privacidade</a>
-          <a href="#lgpd">LGPD e Proteção de Dados</a>
-        </div>
+        Provimento CNJ 213/2026 &middot; Provimento CNJ 161/2025 &middot; Provimento CNJ 149/2023<br>
+        &copy; 2026 Data Secure&reg;. Todos os direitos reservados. Proibida a reprodução sem autorização expressa.
       </div>
     </div>
   </div>
@@ -299,64 +448,64 @@ const ETAPAS = [
     nome: "ETAPA 1 — GOVERNANÇA E GESTÃO",
     prazo: "90 dias — até 24/05/2026",
     itens: [
-      { nome: "Política de Segurança da Informação (PSI) aprovada", ref: "Prov. CNJ nº 213/2026, Art. 3º, §1º; Anexo III; Anexo IV, Etapa 1, item 1.2 | ISO/IEC 27001:2022, Cl. 5.2", ev: "Documento escrito, datado e assinado pelo delegatário. Hash do arquivo registrado no dossiê técnico.", prazo: "90 dias", urg: "CRÍTICO" },
-      { nome: "Responsável técnico de TI formalmente designado", ref: "Prov. CNJ nº 213/2026, Anexo IV, Etapa 1, item 1.1, I | ISO/IEC 27001:2022, Cl. 5.3", ev: "Ato de designação escrito com nome, atribuições e data de início.", prazo: "90 dias", urg: "CRÍTICO" },
-      { nome: "Inventário de ativos tecnológicos atualizado", ref: "Prov. CNJ nº 213/2026, Art. 4º, §3º; Anexo IV, Etapa 1, item 1.7 | ISO/IEC 27002:2022, Cl. 5.9", ev: "Planilha com: nome do ativo, tipo, versão, fabricante, EOL, localização e responsável.", prazo: "90 dias", urg: "ALTO" },
-      { nome: "Contratos com fornecedores revisados — reversibilidade e portabilidade", ref: "Prov. CNJ nº 213/2026, Art. 2º, XIII, XX; Art. 15; Anexo IV, Etapa 1, item 1.8", ev: "Contratos com cláusula de reversibilidade. Checklist contratual assinado pelo delegatário.", prazo: "90 dias", urg: "CRÍTICO" },
-      { nome: "Processo de gestão de incidentes documentado", ref: "Prov. CNJ nº 213/2026, Art. 11 | ISO/IEC 27001:2022, Cl. 6.1.2 | ISO/IEC 27007:2020, An. A", ev: "Procedimento escrito: fluxo de identificação, registro, resposta e comunicação à Corregedoria.", prazo: "90 dias", urg: "ALTO" },
-      { nome: "Controle de acessos com menor privilégio implementado", ref: "Prov. CNJ nº 213/2026, Art. 5º; Anexo II, item 1 | ISO/IEC 27002:2022, Cl. 5.15, 8.2", ev: "Matriz de acessos por cargo. Evidência de desligamento de ex-funcionários.", prazo: "90 dias", urg: "ALTO" },
-      { nome: "Trilhas de auditoria (logs) ativas em todos os sistemas críticos", ref: "Prov. CNJ nº 213/2026, Art. 10; Anexo II, item 3 | ISO/IEC 27002:2022, Cl. 8.15 | ISO/IEC 27007:2020, An. A Cl. 8", ev: "Evidência de log ativo com retenção mínima de 12 meses.", prazo: "90 dias", urg: "CRÍTICO" },
-      { nome: "Declaração das Etapas 1 e 2 registrada no SJA", ref: "Prov. CNJ nº 213/2026, Art. 17; Anexo IV, Etapa 1, itens 1.9 e 2.9", ev: "Captura de tela da declaração no Sistema Justiça Aberta com data e protocolo.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Política de Segurança da Informação (PSI) aprovada", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27001:2022", ev: "Documento escrito, datado e assinado pelo delegatário. Hash do arquivo registrado no dossiê técnico.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Responsável técnico de TI formalmente designado", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27001:2022", ev: "Ato de designação escrito com nome, atribuições e data de início.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Inventário de ativos tecnológicos atualizado", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27002:2022", ev: "Planilha com: nome do ativo, tipo, versão, fabricante, EOL, localização e responsável.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "Contratos com fornecedores revisados — reversibilidade e portabilidade", ref: "Prov. CNJ nº 213/2026", ev: "Contratos com cláusula de reversibilidade. Checklist contratual assinado pelo delegatário.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Processo de gestão de incidentes documentado", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27001:2022 | ISO/IEC 27007:2020", ev: "Procedimento escrito: fluxo de identificação, registro, resposta e comunicação à Corregedoria.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "Controle de acessos com menor privilégio implementado", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27002:2022", ev: "Matriz de acessos por cargo. Evidência de desligamento de ex-funcionários.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "Trilhas de auditoria (logs) ativas em todos os sistemas críticos", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27002:2022 | ISO/IEC 27007:2020", ev: "Evidência de log ativo com retenção mínima de 12 meses.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Declaração das Etapas 1 e 2 registrada no SJA", ref: "Prov. CNJ nº 213/2026", ev: "Captura de tela da declaração no Sistema Justiça Aberta com data e protocolo.", prazo: "90 dias", urg: "CRÍTICO" },
     ]
   },
   {
     nome: "ETAPA 2 — INFRAESTRUTURA DE TI",
     prazo: "90 dias — até 24/05/2026",
     itens: [
-      { nome: "Backup diário automático com teste de restauração documentado", ref: "Prov. CNJ nº 213/2026, Art. 12, §2º; Anexo I, item 5; Anexo V | ISO 22301:2019, Cl. 8.4", ev: "Logs de backup das últimas 30 execuções. Ata de teste de restauração semestral.", prazo: "90 dias", urg: "CRÍTICO" },
-      { nome: "Backup offsite ou nuvem segregada com hash de integridade", ref: "Prov. CNJ nº 213/2026, Anexo I, item 5, IV; Anexo IV, Etapa 3, item 3.2, III | ISO 22301:2019, Cl. 8.4", ev: "Evidência de cópia em local separado. Hash SHA-256 de cada backup.", prazo: "90 dias", urg: "CRÍTICO" },
-      { nome: "RTO ≤ 8h e RPO ≤ 4h definidos e testados", ref: "Prov. CNJ nº 213/2026, Anexo II, itens 2.1 e 2.2", ev: "PCN/PRD com RTO e RPO definidos. Ata de teste prático.", prazo: "90 dias", urg: "CRÍTICO" },
-      { nome: "Nenhum componente em EOL em uso", ref: "Prov. CNJ nº 213/2026, Art. 4º, §3º", ev: "Inventário com coluna EOL verificada. Declaração do responsável técnico.", prazo: "90 dias", urg: "ALTO" },
-      { nome: "VLAN implementada — isolamento de rede cartorial", ref: "Prov. CNJ nº 213/2026, Art. 8º, VII, a) | ISO/IEC 27002:2022, Cl. 8.20", ev: "Diagrama de rede com segmentação VLAN.", prazo: "90 dias", urg: "ALTO" },
-      { nome: "MFA para acessos administrativos", ref: "Prov. CNJ nº 213/2026, Art. 5º, §2º; Anexo II, item 1, II | ISO/IEC 27002:2022, Cl. 8.5", ev: "Evidência de MFA ativo em sistemas de administração.", prazo: "90 dias", urg: "ALTO" },
-      { nome: "Firewall e antivírus gerenciados e atualizados", ref: "Prov. CNJ nº 213/2026, Anexo I, item 4 | ISO/IEC 27002:2022, Cl. 8.7, 8.20", ev: "Relatório de status do antivírus e configuração do firewall.", prazo: "90 dias", urg: "ALTO" },
-      { nome: "PCN e PRD documentados, aprovados e formalizados", ref: "Prov. CNJ nº 213/2026, Art. 3º, §1º; Anexo IV, Etapa 2, item 2.5 | ISO 22301:2019, Cl. 8.3, 8.4", ev: "PCN + PRD assinados pelo delegatário.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Backup diário automático com teste de restauração documentado", ref: "Prov. CNJ nº 213/2026 | ISO 22301:2019", ev: "Logs de backup das últimas 30 execuções. Ata de teste de restauração semestral.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Backup offsite ou nuvem segregada com hash de integridade", ref: "Prov. CNJ nº 213/2026 | ISO 22301:2019", ev: "Evidência de cópia em local separado. Hash SHA-256 de cada backup.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "RTO ≤ 8h e RPO ≤ 4h definidos e testados", ref: "Prov. CNJ nº 213/2026", ev: "PCN/PRD com RTO e RPO definidos. Ata de teste prático.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Nenhum componente em EOL em uso", ref: "Prov. CNJ nº 213/2026", ev: "Inventário com coluna EOL verificada. Declaração do responsável técnico.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "VLAN implementada — isolamento de rede cartorial", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27002:2022", ev: "Diagrama de rede com segmentação VLAN.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "MFA para acessos administrativos", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27002:2022", ev: "Evidência de MFA ativo em sistemas de administração.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "Firewall e antivírus gerenciados e atualizados", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27002:2022", ev: "Relatório de status do antivírus e configuração do firewall.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "PCN e PRD documentados, aprovados e formalizados", ref: "Prov. CNJ nº 213/2026 | ISO 22301:2019", ev: "PCN + PRD assinados pelo delegatário.", prazo: "90 dias", urg: "CRÍTICO" },
     ]
   },
   {
     nome: "ETAPA 3 — GESTÃO DE FORNECEDORES TERCEIRIZADOS",
     prazo: "12 meses — até 23/02/2027 (recomendação Data Secure® — Provimento fixa apenas 90 dias e 24 meses)",
     itens: [
-      { nome: "Fornecedor de SGBD: SLA e cláusula de reversibilidade", ref: "Prov. CNJ nº 213/2026, Art. 2º, XIII, XX; Art. 15; Anexo IV, Etapa 3, item 1.8", ev: "Contrato com SLA e cláusula de reversibilidade. Teste de extração do banco.", prazo: "12 meses", urg: "CRÍTICO" },
-      { nome: "Fornecedor de nuvem: localização e titularidade das chaves", ref: "Prov. CNJ nº 213/2026, Art. 2º, XII, XIII; Art. 9º; Anexo IV, Etapa 3, item 3.2 | Lei nº 13.709/2018 (LGPD), Art. 33", ev: "Contrato com localização do datacenter e titularidade das chaves de criptografia.", prazo: "12 meses", urg: "CRÍTICO" },
-      { nome: "Fornecedor de backup: teste de restauração documentado", ref: "Prov. CNJ nº 213/2026, Anexo I, item 5, V; Anexo V | ISO 22301:2019, Cl. 8.5", ev: "Relatório do fornecedor com resultado do teste.", prazo: "12 meses", urg: "ALTO" },
-      { nome: "Nenhuma dependência estrutural sem plano de contingência", ref: "Prov. CNJ nº 213/2026, Art. 2º, XX; Art. 15; Art. 6º, IV", ev: "Matriz de dependência e plano de contingência por fornecedor.", prazo: "12 meses", urg: "ALTO" },
-      { nome: "Todos os contratos com cláusula de entrega de dados na rescisão", ref: "Prov. CNJ nº 213/2026, Art. 2º, XIII; Art. 15, I", ev: "Checklist contratual assinado. Aditivos para contratos sem cláusula.", prazo: "12 meses", urg: "CRÍTICO" },
-      { nome: "Nenhum acesso de fornecedor sem autorização e log", ref: "Prov. CNJ nº 213/2026, Art. 5º, §1º; Anexo III, item 4.10 | ISO/IEC 27002:2022, Cl. 5.22, 8.2", ev: "Registro de acessos remotos dos últimos 6 meses.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Fornecedor de SGBD: SLA e cláusula de reversibilidade", ref: "Prov. CNJ nº 213/2026", ev: "Contrato com SLA e cláusula de reversibilidade. Teste de extração do banco.", prazo: "12 meses", urg: "CRÍTICO" },
+      { nome: "Fornecedor de nuvem: localização e titularidade das chaves", ref: "Prov. CNJ nº 213/2026 | Lei nº 13.709/2018 (LGPD)", ev: "Contrato com localização do datacenter e titularidade das chaves de criptografia.", prazo: "12 meses", urg: "CRÍTICO" },
+      { nome: "Fornecedor de backup: teste de restauração documentado", ref: "Prov. CNJ nº 213/2026 | ISO 22301:2019", ev: "Relatório do fornecedor com resultado do teste.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Nenhuma dependência estrutural sem plano de contingência", ref: "Prov. CNJ nº 213/2026", ev: "Matriz de dependência e plano de contingência por fornecedor.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Todos os contratos com cláusula de entrega de dados na rescisão", ref: "Prov. CNJ nº 213/2026", ev: "Checklist contratual assinado. Aditivos para contratos sem cláusula.", prazo: "12 meses", urg: "CRÍTICO" },
+      { nome: "Nenhum acesso de fornecedor sem autorização e log", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27002:2022", ev: "Registro de acessos remotos dos últimos 6 meses.", prazo: "12 meses", urg: "ALTO" },
     ]
   },
   {
     nome: "ETAPA 4 — PRIVACIDADE E LGPD",
     prazo: "12 meses — até 23/02/2027 (recomendação Data Secure® — Provimento fixa apenas 90 dias e 24 meses)",
     itens: [
-      { nome: "ROPA elaborado e atualizado", ref: "Lei nº 13.709/2018 (LGPD), Art. 37 | Prov. CNJ nº 213/2026, Art. 7º, §1º | ISO/IEC 27701:2019, Cl. 7.2.8", ev: "Documento com finalidade, categorias de dados, base legal, retenção e compartilhamentos.", prazo: "12 meses", urg: "ALTO" },
-      { nome: "Encarregado de Dados (DPO) designado", ref: "Lei nº 13.709/2018 (LGPD), Art. 41 | Prov. CNJ nº 213/2026, Art. 7º, §2º; Anexo IV, Etapa 1, item 1.1, III", ev: "Ato formal de designação com nome, contato e data.", prazo: "12 meses", urg: "ALTO" },
-      { nome: "Procedimento de atendimento a titulares documentado", ref: "Lei nº 13.709/2018 (LGPD), Arts. 18-22 | Prov. CNJ nº 213/2026, Anexo III, item 4.8, IV | ISO/IEC 27701:2019, Cl. 7.3", ev: "Fluxo de atendimento com prazo de 15 dias e canal divulgado.", prazo: "12 meses", urg: "MÉDIO" },
-      { nome: "Processo de comunicação de incidentes à ANPD", ref: "Lei nº 13.709/2018 (LGPD), Art. 48 | Resolução CD/ANPD nº 15/2024 | Prov. CNJ nº 213/2026, Art. 7º, §3º | ISO/IEC 27701:2019, Cl. 8.4", ev: "Procedimento escrito com critérios, template e prazo de 3 dias úteis.", prazo: "12 meses", urg: "ALTO" },
-      { nome: "DPA com todos os fornecedores que tratam dados pessoais", ref: "Lei nº 13.709/2018 (LGPD), Arts. 39, 46, 47 | Prov. CNJ nº 213/2026, Anexo III, item 4.10 | ISO/IEC 27701:2019, Cl. 6.12", ev: "Contratos com cláusula DPA ou aditivo específico.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "ROPA elaborado e atualizado", ref: "Lei nº 13.709/2018 (LGPD) | Prov. CNJ nº 213/2026 | ISO/IEC 27701:2019", ev: "Documento com finalidade, categorias de dados, base legal, retenção e compartilhamentos.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Encarregado de Dados (DPO) designado", ref: "Lei nº 13.709/2018 (LGPD) | Prov. CNJ nº 213/2026", ev: "Ato formal de designação com nome, contato e data.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Procedimento de atendimento a titulares documentado", ref: "Lei nº 13.709/2018 (LGPD) | Prov. CNJ nº 213/2026 | ISO/IEC 27701:2019", ev: "Fluxo de atendimento com prazo de 15 dias e canal divulgado.", prazo: "12 meses", urg: "MÉDIO" },
+      { nome: "Processo de comunicação de incidentes à ANPD", ref: "Lei nº 13.709/2018 (LGPD) | Resolução CD/ANPD nº 15/2024 | Prov. CNJ nº 213/2026 | ISO/IEC 27701:2019", ev: "Procedimento escrito com critérios, template e prazo de 3 dias úteis.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "DPA com todos os fornecedores que tratam dados pessoais", ref: "Lei nº 13.709/2018 (LGPD) | Prov. CNJ nº 213/2026 | ISO/IEC 27701:2019", ev: "Contratos com cláusula DPA ou aditivo específico.", prazo: "12 meses", urg: "ALTO" },
     ]
   },
   {
     nome: "ETAPA 5 — CONFORMIDADE INTEGRAL E AUDITORIA",
     prazo: "24 meses — até 23/02/2028",
     itens: [
-      { nome: "Pentest realizado por empresa especializada", ref: "Prov. CNJ nº 213/2026, Anexo II, item 6, IV; Anexo IV, Etapa 4, item 4.7 (bienal) | ISO/IEC 27002:2022, Cl. 8.8", ev: "Relatório de pentest com escopo, vulnerabilidades e Plano de Correção.", prazo: "24 meses (bienal)", urg: "ALTO" },
-      { nome: "Varredura de vulnerabilidades com plano de correção", ref: "Prov. CNJ nº 213/2026, Anexo II, item 5 | ISO/IEC 27007:2020, An. A Cl. 8.8 | ISO/IEC 27002:2022, Cl. 8.8", ev: "Relatório de scanner com plano de ação.", prazo: "24 meses (mín. anual)", urg: "ALTO" },
-      { nome: "Dossiê técnico estruturado com hashes de integridade", ref: "Prov. CNJ nº 213/2026, Art. 2º, VI; Anexo IV", ev: "Pasta estruturada com todos os documentos e hash SHA-256.", prazo: "24 meses (contínuo)", urg: "CRÍTICO" },
-      { nome: "Capacitação da equipe documentada", ref: "Prov. CNJ nº 213/2026, Anexo I, item 7; Anexo IV, Etapa 5, item 5.3 | ISO/IEC 27001:2022, Cl. 7.3 | ISO/IEC 27002:2022, Cl. 6.3", ev: "Registros de presença/certificados de treinamento.", prazo: "24 meses (mín. anual)", urg: "MÉDIO" },
-      { nome: "Simulação de extração integral do acervo", ref: "Prov. CNJ nº 213/2026, Anexo IV, Etapa 5, itens 5.6 e 5.6.1 (Classe 3: bienal)", ev: "Ata de simulação assinada pelo responsável técnico e delegatário.", prazo: "24 meses (bienal)", urg: "ALTO" },
-      { nome: "PCN e PRD revisados e testados anualmente", ref: "Prov. CNJ nº 213/2026, Anexo IV, Etapa 4, itens 4.4 e 4.5; Etapa 5, item 5.4 | ISO 22301:2019, Cl. 9.1, 9.3", ev: "Versão revisada + ata de exercício/teste.", prazo: "24 meses (mín. anual)", urg: "ALTO" },
-      { nome: "Trilhas de auditoria nível intermediário configurado", ref: "Prov. CNJ nº 213/2026, Art. 10, §3º e §5º (Classe 3: nível intermediário)", ev: "Evidência de configuração com retenção de 12 meses e proteção contra exclusão.", prazo: "24 meses", urg: "ALTO" },
+      { nome: "Pentest realizado por empresa especializada", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27002:2022", ev: "Relatório de pentest com escopo, vulnerabilidades e Plano de Correção.", prazo: "24 meses (bienal)", urg: "ALTO" },
+      { nome: "Varredura de vulnerabilidades com plano de correção", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27007:2020 | ISO/IEC 27002:2022", ev: "Relatório de scanner com plano de ação.", prazo: "24 meses (mín. anual)", urg: "ALTO" },
+      { nome: "Dossiê técnico estruturado com hashes de integridade", ref: "Prov. CNJ nº 213/2026", ev: "Pasta estruturada com todos os documentos e hash SHA-256.", prazo: "24 meses (contínuo)", urg: "CRÍTICO" },
+      { nome: "Capacitação da equipe documentada", ref: "Prov. CNJ nº 213/2026 | ISO/IEC 27001:2022 | ISO/IEC 27002:2022", ev: "Registros de presença/certificados de treinamento.", prazo: "24 meses (mín. anual)", urg: "MÉDIO" },
+      { nome: "Simulação de extração integral do acervo", ref: "Prov. CNJ nº 213/2026", ev: "Ata de simulação assinada pelo responsável técnico e delegatário.", prazo: "24 meses (bienal)", urg: "ALTO" },
+      { nome: "PCN e PRD revisados e testados anualmente", ref: "Prov. CNJ nº 213/2026 | ISO 22301:2019", ev: "Versão revisada + ata de exercício/teste.", prazo: "24 meses (mín. anual)", urg: "ALTO" },
+      { nome: "Trilhas de auditoria nível intermediário configurado", ref: "Prov. CNJ nº 213/2026", ev: "Evidência de configuração com retenção de 12 meses e proteção contra exclusão.", prazo: "24 meses", urg: "ALTO" },
     ]
   }
 ];
