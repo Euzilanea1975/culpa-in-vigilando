@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Secure® — Checklist Provimento CNJ nº 213/2026 | Classe 3</title>
+<style>
+  :root {
+    --ds-azul: #1B3A5C;
+    --ds-azul-claro: #D6E4F0;
+    --ds-cinza: #2C3E50;
+    --ds-bg: #F5F7FA;
+    --ds-verde: #27AE60;
+    --ds-amarelo: #F39C12;
+    --ds-vermelho: #C0392B;
+    --ds-laranja: #E67E22;
+    --ds-branco: #FFFFFF;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--ds-bg); color: #333; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* HEADER */
+  .header { text-align: center; padding: 30px 0 10px; }
+  .header h1 { color: var(--ds-azul); font-size: 28px; letter-spacing: 2px; }
+  .header .sub { color: #888; font-size: 13px; margin-top: 4px; }
+  .header .titulo-principal {
+    background: var(--ds-azul); color: white; padding: 14px 30px; border-radius: 8px;
+    font-size: 16px; font-weight: 700; margin-top: 18px; display: inline-block;
+  }
+
+  /* DASHBOARD */
+  .dashboard {
+    background: white; border-radius: 12px; padding: 30px; margin: 24px 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+  }
+  .dash-title { font-size: 18px; font-weight: 700; color: var(--ds-azul); margin-bottom: 20px; }
+
+  .gauge-container { display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; margin-bottom: 30px; }
+  .gauge-box { text-align: center; }
+  .gauge-box canvas { display: block; margin: 0 auto; }
+  .gauge-label { font-size: 12px; color: #666; margin-top: 6px; font-weight: 600; }
+  .gauge-pct { font-size: 22px; font-weight: 800; color: var(--ds-azul); }
+
+  /* TABELA DE PROGRESSO */
+  .progress-table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+  .progress-table th {
+    background: var(--ds-cinza); color: white; padding: 10px 14px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1px; text-align: left;
+  }
+  .progress-table td { padding: 10px 14px; border-bottom: 1px solid #eee; font-size: 13px; }
+  .progress-table tr:hover { background: #f0f4f8; }
+  .bar-bg { background: #E8ECF0; border-radius: 10px; height: 22px; overflow: hidden; position: relative; min-width: 200px; }
+  .bar-fill { height: 100%; border-radius: 10px; transition: width 0.6s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 8px; }
+  .bar-fill span { font-size: 11px; font-weight: 700; color: white; text-shadow: 0 1px 2px rgba(0,0,0,0.3); }
+  .pct-cell { font-weight: 800; font-size: 16px; color: var(--ds-azul); text-align: center; }
+
+  /* ETAPAS */
+  .etapa-section { margin: 24px 0; }
+  .etapa-header {
+    background: var(--ds-azul); color: white; padding: 14px 20px; border-radius: 10px 10px 0 0;
+    display: flex; justify-content: space-between; align-items: center; cursor: pointer;
+    user-select: none;
+  }
+  .etapa-header:hover { background: #15304D; }
+  .etapa-header h3 { font-size: 14px; }
+  .etapa-header .prazo { font-size: 11px; opacity: 0.8; }
+  .etapa-header .badge {
+    background: rgba(255,255,255,0.2); padding: 4px 12px; border-radius: 20px;
+    font-size: 13px; font-weight: 700;
+  }
+
+  .etapa-body { background: white; border-radius: 0 0 10px 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.06); overflow: hidden; }
+  .etapa-body.collapsed { display: none; }
+
+  .item-table { width: 100%; border-collapse: collapse; }
+  .item-table th {
+    background: #F0F3F7; padding: 8px 12px; font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.5px; color: #666; text-align: left; border-bottom: 2px solid #ddd;
+  }
+  .item-table td { padding: 10px 12px; border-bottom: 1px solid #f0f0f0; font-size: 12px; vertical-align: top; }
+  .item-table tr:hover { background: #FAFBFD; }
+  .item-name { font-weight: 700; color: var(--ds-azul); font-size: 13px; }
+  .item-ref { color: #888; font-size: 11px; line-height: 1.5; }
+  .item-ev { color: #555; font-size: 11px; line-height: 1.5; }
+
+  .urg-critico { background: #FFEBEE; color: #C0392B; font-weight: 700; padding: 3px 8px; border-radius: 4px; font-size: 10px; }
+  .urg-alto { background: #FFF3E0; color: #E67E22; font-weight: 700; padding: 3px 8px; border-radius: 4px; font-size: 10px; }
+  .urg-medio { background: #FFF8E1; color: #F39C12; font-weight: 700; padding: 3px 8px; border-radius: 4px; font-size: 10px; }
+
+  .status-toggle {
+    width: 50px; height: 26px; border-radius: 13px; border: none; cursor: pointer;
+    position: relative; transition: background 0.3s; outline: none;
+  }
+  .status-toggle.off { background: #ddd; }
+  .status-toggle.on { background: var(--ds-verde); }
+  .status-toggle::after {
+    content: ''; position: absolute; top: 3px; width: 20px; height: 20px;
+    border-radius: 50%; background: white; transition: left 0.3s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .status-toggle.off::after { left: 3px; }
+  .status-toggle.on::after { left: 27px; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 30px 0; color: #aaa; font-size: 11px; }
+
+  @media print {
+    .status-toggle { display: none; }
+    .etapa-body { display: block !important; }
+    body { background: white; }
+    .dashboard, .etapa-section { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+  <div class="header">
+    <h1>DATA SECURE®</h1>
+    <div class="sub">Governança · Riscos · Conformidade · Segurança da Informação</div>
+    <div class="titulo-principal">PAINEL DE CONFORMIDADE — Provimento CNJ nº 213/2026 | Classe 3</div>
+  </div>
+
+  <div class="dashboard">
+    <div class="dash-title">Conformidade Geral</div>
+    <div class="gauge-container">
+      <div class="gauge-box">
+        <canvas id="gaugeTotal" width="180" height="110"></canvas>
+        <div class="gauge-pct" id="pctTotal">0%</div>
+        <div class="gauge-label">TOTAL GERAL</div>
+      </div>
+      <div class="gauge-box">
+        <canvas id="gauge0" width="120" height="75"></canvas>
+        <div class="gauge-pct" id="pct0" style="font-size:15px">0%</div>
+        <div class="gauge-label">Etapa 1</div>
+      </div>
+      <div class="gauge-box">
+        <canvas id="gauge1" width="120" height="75"></canvas>
+        <div class="gauge-pct" id="pct1" style="font-size:15px">0%</div>
+        <div class="gauge-label">Etapa 2</div>
+      </div>
+      <div class="gauge-box">
+        <canvas id="gauge2" width="120" height="75"></canvas>
+        <div class="gauge-pct" id="pct2" style="font-size:15px">0%</div>
+        <div class="gauge-label">Etapa 3</div>
+      </div>
+      <div class="gauge-box">
+        <canvas id="gauge3" width="120" height="75"></canvas>
+        <div class="gauge-pct" id="pct3" style="font-size:15px">0%</div>
+        <div class="gauge-label">Etapa 4</div>
+      </div>
+      <div class="gauge-box">
+        <canvas id="gauge4" width="120" height="75"></canvas>
+        <div class="gauge-pct" id="pct4" style="font-size:15px">0%</div>
+        <div class="gauge-label">Etapa 5</div>
+      </div>
+    </div>
+
+    <table class="progress-table">
+      <thead>
+        <tr>
+          <th>Etapa</th>
+          <th>Atendidos</th>
+          <th>Total</th>
+          <th>Progresso</th>
+          <th>%</th>
+        </tr>
+      </thead>
+      <tbody id="progressBody"></tbody>
+    </table>
+  </div>
+
+  <div id="etapasContainer"></div>
+
+  <div class="footer">
+    Metodologia Data Secure® — Retomada do Controle da Serventia<br>
+    Euzilanea Miotto | Confidencial — Uso exclusivo da Serventia e da Equipe de Auditoria | Março / 2026
+  </div>
+</div>
+
+<script>
+const ETAPAS = [
+  {
+    nome: "ETAPA 1 — GOVERNANÇA E GESTÃO",
+    prazo: "90 dias — até 24/05/2026",
+    itens: [
+      { nome: "Política de Segurança da Informação (PSI) aprovada", ref: "Prov. CNJ nº 213/2026, Art. 3º, §1º; Anexo III; Anexo IV, Etapa 1, item 1.2 | ISO/IEC 27001:2022, Cl. 5.2", ev: "Documento escrito, datado e assinado pelo delegatário. Hash do arquivo registrado no dossiê técnico.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Responsável técnico de TI formalmente designado", ref: "Prov. CNJ nº 213/2026, Anexo IV, Etapa 1, item 1.1, I | ISO/IEC 27001:2022, Cl. 5.3", ev: "Ato de designação escrito com nome, atribuições e data de início.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Inventário de ativos tecnológicos atualizado", ref: "Prov. CNJ nº 213/2026, Art. 4º, §3º; Anexo IV, Etapa 1, item 1.7 | ISO/IEC 27002:2022, Cl. 5.9", ev: "Planilha com: nome do ativo, tipo, versão, fabricante, EOL, localização e responsável.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "Contratos com fornecedores revisados — reversibilidade e portabilidade", ref: "Prov. CNJ nº 213/2026, Art. 2º, XIII, XX; Art. 15; Anexo IV, Etapa 1, item 1.8", ev: "Contratos com cláusula de reversibilidade. Checklist contratual assinado pelo delegatário.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Processo de gestão de incidentes documentado", ref: "Prov. CNJ nº 213/2026, Art. 11 | ISO/IEC 27001:2022, Cl. 6.1.2 | ISO/IEC 27007:2020, An. A", ev: "Procedimento escrito: fluxo de identificação, registro, resposta e comunicação à Corregedoria.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "Controle de acessos com menor privilégio implementado", ref: "Prov. CNJ nº 213/2026, Art. 5º; Anexo II, item 1 | ISO/IEC 27002:2022, Cl. 5.15, 8.2", ev: "Matriz de acessos por cargo. Evidência de desligamento de ex-funcionários.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "Trilhas de auditoria (logs) ativas em todos os sistemas críticos", ref: "Prov. CNJ nº 213/2026, Art. 10; Anexo II, item 3 | ISO/IEC 27002:2022, Cl. 8.15 | ISO/IEC 27007:2020, An. A Cl. 8", ev: "Evidência de log ativo com retenção mínima de 12 meses.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Declaração das Etapas 1 e 2 registrada no SJA", ref: "Prov. CNJ nº 213/2026, Art. 17; Anexo IV, Etapa 1, itens 1.9 e 2.9", ev: "Captura de tela da declaração no Sistema Justiça Aberta com data e protocolo.", prazo: "90 dias", urg: "CRÍTICO" },
+    ]
+  },
+  {
+    nome: "ETAPA 2 — INFRAESTRUTURA DE TI",
+    prazo: "90 dias — até 24/05/2026",
+    itens: [
+      { nome: "Backup diário automático com teste de restauração documentado", ref: "Prov. CNJ nº 213/2026, Art. 12, §2º; Anexo I, item 5; Anexo V | ISO 22301:2019, Cl. 8.4", ev: "Logs de backup das últimas 30 execuções. Ata de teste de restauração semestral.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Backup offsite ou nuvem segregada com hash de integridade", ref: "Prov. CNJ nº 213/2026, Anexo I, item 5, IV; Anexo IV, Etapa 3, item 3.2, III | ISO 22301:2019, Cl. 8.4", ev: "Evidência de cópia em local separado. Hash SHA-256 de cada backup.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "RTO ≤ 8h e RPO ≤ 4h definidos e testados", ref: "Prov. CNJ nº 213/2026, Anexo II, itens 2.1 e 2.2", ev: "PCN/PRD com RTO e RPO definidos. Ata de teste prático.", prazo: "90 dias", urg: "CRÍTICO" },
+      { nome: "Nenhum componente em EOL em uso", ref: "Prov. CNJ nº 213/2026, Art. 4º, §3º", ev: "Inventário com coluna EOL verificada. Declaração do responsável técnico.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "VLAN implementada — isolamento de rede cartorial", ref: "Prov. CNJ nº 213/2026, Art. 8º, VII, a) | ISO/IEC 27002:2022, Cl. 8.20", ev: "Diagrama de rede com segmentação VLAN.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "MFA para acessos administrativos", ref: "Prov. CNJ nº 213/2026, Art. 5º, §2º; Anexo II, item 1, II | ISO/IEC 27002:2022, Cl. 8.5", ev: "Evidência de MFA ativo em sistemas de administração.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "Firewall e antivírus gerenciados e atualizados", ref: "Prov. CNJ nº 213/2026, Anexo I, item 4 | ISO/IEC 27002:2022, Cl. 8.7, 8.20", ev: "Relatório de status do antivírus e configuração do firewall.", prazo: "90 dias", urg: "ALTO" },
+      { nome: "PCN e PRD documentados, aprovados e formalizados", ref: "Prov. CNJ nº 213/2026, Art. 3º, §1º; Anexo IV, Etapa 2, item 2.5 | ISO 22301:2019, Cl. 8.3, 8.4", ev: "PCN + PRD assinados pelo delegatário.", prazo: "90 dias", urg: "CRÍTICO" },
+    ]
+  },
+  {
+    nome: "ETAPA 3 — GESTÃO DE FORNECEDORES TERCEIRIZADOS",
+    prazo: "12 meses — até 23/02/2027 (recomendação Data Secure® — Provimento fixa apenas 90 dias e 24 meses)",
+    itens: [
+      { nome: "Fornecedor de SGBD: SLA e cláusula de reversibilidade", ref: "Prov. CNJ nº 213/2026, Art. 2º, XIII, XX; Art. 15; Anexo IV, Etapa 3, item 1.8", ev: "Contrato com SLA e cláusula de reversibilidade. Teste de extração do banco.", prazo: "12 meses", urg: "CRÍTICO" },
+      { nome: "Fornecedor de nuvem: localização e titularidade das chaves", ref: "Prov. CNJ nº 213/2026, Art. 2º, XII, XIII; Art. 9º; Anexo IV, Etapa 3, item 3.2 | Lei nº 13.709/2018 (LGPD), Art. 33", ev: "Contrato com localização do datacenter e titularidade das chaves de criptografia.", prazo: "12 meses", urg: "CRÍTICO" },
+      { nome: "Fornecedor de backup: teste de restauração documentado", ref: "Prov. CNJ nº 213/2026, Anexo I, item 5, V; Anexo V | ISO 22301:2019, Cl. 8.5", ev: "Relatório do fornecedor com resultado do teste.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Nenhuma dependência estrutural sem plano de contingência", ref: "Prov. CNJ nº 213/2026, Art. 2º, XX; Art. 15; Art. 6º, IV", ev: "Matriz de dependência e plano de contingência por fornecedor.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Todos os contratos com cláusula de entrega de dados na rescisão", ref: "Prov. CNJ nº 213/2026, Art. 2º, XIII; Art. 15, I", ev: "Checklist contratual assinado. Aditivos para contratos sem cláusula.", prazo: "12 meses", urg: "CRÍTICO" },
+      { nome: "Nenhum acesso de fornecedor sem autorização e log", ref: "Prov. CNJ nº 213/2026, Art. 5º, §1º; Anexo III, item 4.10 | ISO/IEC 27002:2022, Cl. 5.22, 8.2", ev: "Registro de acessos remotos dos últimos 6 meses.", prazo: "12 meses", urg: "ALTO" },
+    ]
+  },
+  {
+    nome: "ETAPA 4 — PRIVACIDADE E LGPD",
+    prazo: "12 meses — até 23/02/2027 (recomendação Data Secure® — Provimento fixa apenas 90 dias e 24 meses)",
+    itens: [
+      { nome: "ROPA elaborado e atualizado", ref: "Lei nº 13.709/2018 (LGPD), Art. 37 | Prov. CNJ nº 213/2026, Art. 7º, §1º | ISO/IEC 27701:2019, Cl. 7.2.8", ev: "Documento com finalidade, categorias de dados, base legal, retenção e compartilhamentos.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Encarregado de Dados (DPO) designado", ref: "Lei nº 13.709/2018 (LGPD), Art. 41 | Prov. CNJ nº 213/2026, Art. 7º, §2º; Anexo IV, Etapa 1, item 1.1, III", ev: "Ato formal de designação com nome, contato e data.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "Procedimento de atendimento a titulares documentado", ref: "Lei nº 13.709/2018 (LGPD), Arts. 18-22 | Prov. CNJ nº 213/2026, Anexo III, item 4.8, IV | ISO/IEC 27701:2019, Cl. 7.3", ev: "Fluxo de atendimento com prazo de 15 dias e canal divulgado.", prazo: "12 meses", urg: "MÉDIO" },
+      { nome: "Processo de comunicação de incidentes à ANPD", ref: "Lei nº 13.709/2018 (LGPD), Art. 48 | Resolução CD/ANPD nº 15/2024 | Prov. CNJ nº 213/2026, Art. 7º, §3º | ISO/IEC 27701:2019, Cl. 8.4", ev: "Procedimento escrito com critérios, template e prazo de 3 dias úteis.", prazo: "12 meses", urg: "ALTO" },
+      { nome: "DPA com todos os fornecedores que tratam dados pessoais", ref: "Lei nº 13.709/2018 (LGPD), Arts. 39, 46, 47 | Prov. CNJ nº 213/2026, Anexo III, item 4.10 | ISO/IEC 27701:2019, Cl. 6.12", ev: "Contratos com cláusula DPA ou aditivo específico.", prazo: "12 meses", urg: "ALTO" },
+    ]
+  },
+  {
+    nome: "ETAPA 5 — CONFORMIDADE INTEGRAL E AUDITORIA",
+    prazo: "24 meses — até 23/02/2028",
+    itens: [
+      { nome: "Pentest realizado por empresa especializada", ref: "Prov. CNJ nº 213/2026, Anexo II, item 6, IV; Anexo IV, Etapa 4, item 4.7 (bienal) | ISO/IEC 27002:2022, Cl. 8.8", ev: "Relatório de pentest com escopo, vulnerabilidades e Plano de Correção.", prazo: "24 meses (bienal)", urg: "ALTO" },
+      { nome: "Varredura de vulnerabilidades com plano de correção", ref: "Prov. CNJ nº 213/2026, Anexo II, item 5 | ISO/IEC 27007:2020, An. A Cl. 8.8 | ISO/IEC 27002:2022, Cl. 8.8", ev: "Relatório de scanner com plano de ação.", prazo: "24 meses (mín. anual)", urg: "ALTO" },
+      { nome: "Dossiê técnico estruturado com hashes de integridade", ref: "Prov. CNJ nº 213/2026, Art. 2º, VI; Anexo IV", ev: "Pasta estruturada com todos os documentos e hash SHA-256.", prazo: "24 meses (contínuo)", urg: "CRÍTICO" },
+      { nome: "Capacitação da equipe documentada", ref: "Prov. CNJ nº 213/2026, Anexo I, item 7; Anexo IV, Etapa 5, item 5.3 | ISO/IEC 27001:2022, Cl. 7.3 | ISO/IEC 27002:2022, Cl. 6.3", ev: "Registros de presença/certificados de treinamento.", prazo: "24 meses (mín. anual)", urg: "MÉDIO" },
+      { nome: "Simulação de extração integral do acervo", ref: "Prov. CNJ nº 213/2026, Anexo IV, Etapa 5, itens 5.6 e 5.6.1 (Classe 3: bienal)", ev: "Ata de simulação assinada pelo responsável técnico e delegatário.", prazo: "24 meses (bienal)", urg: "ALTO" },
+      { nome: "PCN e PRD revisados e testados anualmente", ref: "Prov. CNJ nº 213/2026, Anexo IV, Etapa 4, itens 4.4 e 4.5; Etapa 5, item 5.4 | ISO 22301:2019, Cl. 9.1, 9.3", ev: "Versão revisada + ata de exercício/teste.", prazo: "24 meses (mín. anual)", urg: "ALTO" },
+      { nome: "Trilhas de auditoria nível intermediário configurado", ref: "Prov. CNJ nº 213/2026, Art. 10, §3º e §5º (Classe 3: nível intermediário)", ev: "Evidência de configuração com retenção de 12 meses e proteção contra exclusão.", prazo: "24 meses", urg: "ALTO" },
+    ]
+  }
+];
+
+// State
+const state = ETAPAS.map(e => e.itens.map(() => false));
+
+function getColor(pct) {
+  if (pct < 0.3) return '#C0392B';
+  if (pct < 0.6) return '#F39C12';
+  if (pct < 0.9) return '#E67E22';
+  return '#27AE60';
+}
+
+function drawGauge(canvasId, pct, size) {
+  const canvas = document.getElementById(canvasId);
+  const ctx = canvas.getContext('2d');
+  const w = canvas.width, h = canvas.height;
+  ctx.clearRect(0, 0, w, h);
+
+  const cx = w / 2, cy = h - 10;
+  const r = size === 'big' ? 70 : 48;
+  const lw = size === 'big' ? 14 : 10;
+
+  // Background arc
+  ctx.beginPath();
+  ctx.arc(cx, cy, r, Math.PI, 2 * Math.PI);
+  ctx.strokeStyle = '#E8ECF0';
+  ctx.lineWidth = lw;
+  ctx.lineCap = 'round';
+  ctx.stroke();
+
+  // Filled arc
+  if (pct > 0) {
+    ctx.beginPath();
+    ctx.arc(cx, cy, r, Math.PI, Math.PI + (Math.PI * pct));
+    ctx.strokeStyle = getColor(pct);
+    ctx.lineWidth = lw;
+    ctx.lineCap = 'round';
+    ctx.stroke();
+  }
+}
+
+function urgClass(u) {
+  if (u === 'CRÍTICO') return 'urg-critico';
+  if (u === 'ALTO') return 'urg-alto';
+  return 'urg-medio';
+}
+
+function render() {
+  // Calculate per-etapa
+  const counts = ETAPAS.map((e, i) => {
+    const done = state[i].filter(v => v).length;
+    return { done, total: e.itens.length, pct: e.itens.length ? done / e.itens.length : 0 };
+  });
+  const totalDone = counts.reduce((s, c) => s + c.done, 0);
+  const totalItems = counts.reduce((s, c) => s + c.total, 0);
+  const totalPct = totalItems ? totalDone / totalItems : 0;
+
+  // Gauges
+  drawGauge('gaugeTotal', totalPct, 'big');
+  document.getElementById('pctTotal').textContent = Math.round(totalPct * 100) + '%';
+  document.getElementById('pctTotal').style.color = getColor(totalPct);
+
+  counts.forEach((c, i) => {
+    drawGauge('gauge' + i, c.pct, 'small');
+    document.getElementById('pct' + i).textContent = Math.round(c.pct * 100) + '%';
+    document.getElementById('pct' + i).style.color = getColor(c.pct);
+  });
+
+  // Progress table
+  const tbody = document.getElementById('progressBody');
+  tbody.innerHTML = '';
+  const labels = ['Etapa 1 — Governança', 'Etapa 2 — Infraestrutura', 'Etapa 3 — Fornecedores', 'Etapa 4 — LGPD', 'Etapa 5 — Auditoria'];
+  counts.forEach((c, i) => {
+    const pctW = Math.round(c.pct * 100);
+    const color = getColor(c.pct);
+    tbody.innerHTML += `<tr>
+      <td style="font-weight:600;color:#1B3A5C">${labels[i]}</td>
+      <td style="text-align:center;font-weight:700;color:${color}">${c.done}</td>
+      <td style="text-align:center">${c.total}</td>
+      <td><div class="bar-bg"><div class="bar-fill" style="width:${Math.max(pctW, 2)}%;background:${color}"><span>${pctW}%</span></div></div></td>
+      <td class="pct-cell" style="color:${color}">${pctW}%</td>
+    </tr>`;
+  });
+  // Total row
+  const tPctW = Math.round(totalPct * 100);
+  const tColor = getColor(totalPct);
+  tbody.innerHTML += `<tr style="background:#1B3A5C;color:white;font-weight:700">
+    <td style="color:white">TOTAL GERAL</td>
+    <td style="text-align:center;color:white">${totalDone}</td>
+    <td style="text-align:center;color:white">${totalItems}</td>
+    <td><div class="bar-bg"><div class="bar-fill" style="width:${Math.max(tPctW,2)}%;background:${tColor}"><span>${tPctW}%</span></div></div></td>
+    <td class="pct-cell" style="color:white">${tPctW}%</td>
+  </tr>`;
+
+  // Etapa badges
+  counts.forEach((c, i) => {
+    const badge = document.getElementById('badge' + i);
+    if (badge) badge.textContent = `${c.done}/${c.total} — ${Math.round(c.pct * 100)}%`;
+  });
+}
+
+function toggleItem(ei, ii) {
+  state[ei][ii] = !state[ei][ii];
+  const btn = document.getElementById(`toggle-${ei}-${ii}`);
+  btn.className = 'status-toggle ' + (state[ei][ii] ? 'on' : 'off');
+  render();
+}
+
+function toggleEtapa(ei) {
+  const body = document.getElementById('body' + ei);
+  body.classList.toggle('collapsed');
+}
+
+// Build etapas
+const container = document.getElementById('etapasContainer');
+ETAPAS.forEach((e, ei) => {
+  let html = `<div class="etapa-section">
+    <div class="etapa-header" onclick="toggleEtapa(${ei})">
+      <div><h3>${e.nome}</h3><div class="prazo">${e.prazo}</div></div>
+      <div class="badge" id="badge${ei}">0/${e.itens.length} — 0%</div>
+    </div>
+    <div class="etapa-body" id="body${ei}">
+      <table class="item-table">
+        <thead><tr>
+          <th style="width:22%">Item a Verificar</th>
+          <th style="width:25%">Referência Normativa</th>
+          <th style="width:30%">Evidência Exigida</th>
+          <th style="width:8%">Prazo</th>
+          <th style="width:7%">Urgência</th>
+          <th style="width:8%">Status</th>
+        </tr></thead>
+        <tbody>`;
+  e.itens.forEach((item, ii) => {
+    html += `<tr>
+      <td class="item-name">${item.nome}</td>
+      <td class="item-ref">${item.ref.replace(/\|/g, '<br>')}</td>
+      <td class="item-ev">${item.ev}</td>
+      <td style="text-align:center;font-size:11px">${item.prazo}</td>
+      <td style="text-align:center"><span class="${urgClass(item.urg)}">${item.urg}</span></td>
+      <td style="text-align:center"><button class="status-toggle off" id="toggle-${ei}-${ii}" onclick="toggleItem(${ei},${ii})"></button></td>
+    </tr>`;
+  });
+  html += `</tbody></table></div></div>`;
+  container.innerHTML += html;
+});
+
+render();
+</script>
+</body>
+</html>
