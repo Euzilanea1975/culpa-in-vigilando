@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="copyright" content="Copyright 2026 Data Secure®">
+<meta name="author" content="Euzilanea Miotto, Data Secure®">
+<meta name="description" content="Checklist Interativo — Provimento CNJ nº 213/2026 | Classe 3 | Ferramenta de conformidade para Serventias Extrajudiciais">
 <title>Data Secure® — Checklist Provimento CNJ nº 213/2026 | Classe 3</title>
 <style>
   :root {
@@ -19,6 +22,22 @@
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--ds-bg); color: #333; }
   .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+
+  /* LOGO POSICIONADA */
+  .logo-header {
+    position: fixed;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+    background: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+  .logo-header img {
+    height: 50px;
+    width: auto;
+  }
 
   /* HEADER */
   .header { text-align: center; padding: 30px 0 10px; }
@@ -101,18 +120,73 @@
   .status-toggle.off::after { left: 3px; }
   .status-toggle.on::after { left: 27px; }
 
-  /* FOOTER */
-  .footer { text-align: center; padding: 30px 0; color: #aaa; font-size: 11px; }
+  /* SEÇÃO AUTOR */
+  .autor-section {
+    background: white; border-radius: 12px; padding: 30px; margin: 30px 0;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.08); border-left: 5px solid var(--ds-verde);
+  }
+  .autor-title { font-size: 16px; font-weight: 700; color: var(--ds-azul); margin-bottom: 20px; }
+  .autor-container {
+    display: flex; gap: 25px; align-items: flex-start;
+  }
+  .autor-foto {
+    flex-shrink: 0;
+  }
+  .autor-foto img {
+    width: 120px; height: 120px; border-radius: 8px; object-fit: cover;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+  .autor-bio {
+    flex: 1;
+  }
+  .autor-bio h4 { font-size: 14px; color: var(--ds-azul); margin-bottom: 8px; font-weight: 700; }
+  .autor-bio p { font-size: 13px; line-height: 1.6; color: #555; margin-bottom: 10px; }
+  .autor-bio .destaque { color: var(--ds-verde); font-weight: 600; }
+
+  /* FOOTER LEGAL */
+  .footer-legal {
+    background: var(--ds-azul); color: white; padding: 30px 20px; margin-top: 40px; border-top: 3px solid var(--ds-verde);
+  }
+  .footer-legal-container {
+    max-width: 1200px; margin: 0 auto;
+  }
+  .footer-copyright {
+    font-size: 12px; line-height: 1.8; margin-bottom: 15px; opacity: 0.9;
+  }
+  .footer-divider {
+    border-top: 1px solid rgba(255,255,255,0.2); padding-top: 15px; margin-top: 15px; font-size: 11px; opacity: 0.8;
+  }
+  .footer-links {
+    margin-top: 12px;
+  }
+  .footer-links a {
+    color: #D6E4F0; text-decoration: none; margin-right: 20px; font-size: 11px;
+  }
+  .footer-links a:hover {
+    color: var(--ds-verde); text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .logo-header { position: static; margin-bottom: 15px; }
+    .autor-container { flex-direction: column; align-items: center; text-align: center; }
+    .gauge-container { gap: 20px; }
+  }
 
   @media print {
+    .logo-header { position: static; }
     .status-toggle { display: none; }
     .etapa-body { display: block !important; }
     body { background: white; }
     .dashboard, .etapa-section { break-inside: avoid; }
+    @page { size: A4; margin: 15mm; }
   }
 </style>
 </head>
 <body>
+<div class="logo-header">
+  <img src="Euzilanea_Data5.png" alt="Data Secure®">
+</div>
+
 <div class="container">
   <div class="header">
     <h1>DATA SECURE®</h1>
@@ -171,9 +245,51 @@
 
   <div id="etapasContainer"></div>
 
-  <div class="footer">
-    Metodologia Data Secure® — Retomada do Controle da Serventia<br>
-    Euzilanea Miotto | Confidencial — Uso exclusivo da Serventia e da Equipe de Auditoria | Março / 2026
+  <!-- SEÇÃO AUTOR -->
+  <div class="autor-section">
+    <div class="autor-title">SOBRE A AUTORA</div>
+    <div class="autor-container">
+      <div class="autor-foto">
+        <img src="perfil.jpg" alt="Euzilanea Miotto">
+      </div>
+      <div class="autor-bio">
+        <h4>Euzilanea Miotto</h4>
+        <p><span class="destaque">Fundadora e Consultora Estratégica da Data Secure®</span></p>
+        <p>
+          Especialista em Governança, Riscos e Conformidade (GRC), Gestão de TI e Segurança da Informação, Continuidade de Negócios, Privacidade (LGPD), Auditorias e Governança de IA. Com foco no mercado de Serventias Extrajudiciais (Cartórios), mas atuando em diversos setores.
+        </p>
+        <p>
+          Autodidata em Direito Extrajudicial com <strong>10 anos de experiência direta em cartórios</strong> e <strong>mais de 20 anos em Governança Corporativa</strong>. Especialista em Gestão de Riscos, Inteligência Artificial, Segurança Cibernética, Privacidade (LGPD) e Conformidade Digital.
+        </p>
+        <p>
+          Sua missão: ser o <strong>escudo do delegatário</strong> contra sanções do CNJ (Provimentos 149/2023, 161/2025, 213/2026), estruturando defesas contra os riscos decorrentes da dependência de fornecedores de TI (SGBD, nuvem, backups, infraestrutura).
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER LEGAL -->
+  <div class="footer-legal">
+    <div class="footer-legal-container">
+      <div class="footer-copyright">
+        <strong>&copy; 2026 Data Secure®. Todos os direitos reservados.</strong><br>
+        Este conteúdo é propriedade intelectual de Data Secure® e está protegido pelas leis de direito autoral brasileiras e internacionais.
+      </div>
+      <div class="footer-copyright">
+        <strong>Restrições de Uso:</strong> Proibida a reprodução, distribuição, modificação, tradução ou transmissão total ou parcial deste documento, em qualquer mídia ou formato, sem permissão expressa e por escrito da Data Secure®. O uso não autorizado constitui violação das leis de direito autoral e propriedade intelectual.
+      </div>
+      <div class="footer-copyright">
+        <strong>Confidencialidade:</strong> Este material é confidencial e deve ser utilizado exclusivamente pela Serventia contratante e pela Equipe de Auditoria Data Secure®. Não pode ser compartilhado, divulgado ou cedido a terceiros sem autorização expressa.
+      </div>
+      <div class="footer-divider">
+        Metodologia Data Secure® — Retomada do Controle da Serventia | Março de 2026<br>
+        <div class="footer-links">
+          <a href="#termos">Termos de Uso</a>
+          <a href="#privacidade">Política de Privacidade</a>
+          <a href="#lgpd">LGPD e Proteção de Dados</a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
